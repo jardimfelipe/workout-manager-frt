@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 
-import useLogout from "../domain/auth/useLogout";
 import { getSavedState, saveState } from "../utils/localStorage";
+import useLogout from "@/domain/auth/useLogout";
 
 const useApi = () => {
   const logout = useLogout();
@@ -28,7 +28,7 @@ const useApi = () => {
     }
   };
 
-  api.interceptors.request.use((config: AxiosRequestConfig<any>) => {
+  api.interceptors.request.use((config: AxiosRequestConfig) => {
     if (!!user) {
       if (config.headers)
         config.headers.Authorization = `Bearer ${accessToken}`;

@@ -1,16 +1,4 @@
-export enum RolesEnum {
-  TEACHER = "teacher",
-  ADMIN = "admin",
-  STUDENT = "student",
-}
-
-export interface IUser {
-  name: string;
-  age: number;
-  email: string;
-  role: RolesEnum;
-  _id: string;
-}
+import type { IWorkout } from "../workouts/types";
 
 export type LoginPayload = {
   email: string;

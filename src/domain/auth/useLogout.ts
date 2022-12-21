@@ -1,15 +1,15 @@
-import axios from "axios";
-import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { getSavedState, removeState } from "@/utils/localStorage";
 
-import { getSavedState, removeState } from "../../utils/localStorage";
+import { useMutation } from "vue-query";
+import { useRouter } from "vue-router";
+import axios from "axios";
 
 const useLogout = () => {
   const user = getSavedState("user");
-  const navigate = useNavigate();
+  const router = useRouter();
   return useMutation(
     () =>
-      axios.post(`${import.meta.env.VITE_SOME_KEY}/auth/logout`, {
+      axios.post(`${import.meta.env.VITE_APP_API}/auth/logout`, {
         id: user._id,
       }),
     {
@@ -17,7 +17,7 @@ const useLogout = () => {
         removeState("accessToken");
         removeState("refreshToken");
         removeState("user");
-        navigate("/login");
+        router.push("/login");
       },
     }
   );

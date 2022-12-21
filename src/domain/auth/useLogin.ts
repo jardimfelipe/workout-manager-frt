@@ -1,14 +1,17 @@
+import { useMutation } from "vue-query";
 import jwtDecode from "jwt-decode";
-import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "vue-router";
 
-import useApi from "../../service/api";
-import { saveState } from "../../utils/localStorage";
-import { IUser, LoginPayload } from "./types";
+import useApi from "@/services/api";
+import { saveState } from "@/utils/localStorage";
+import type { LoginPayload } from "./types";
+import type { IUser } from "../users/type";
+import { useAuthStore } from "@/stores/auth";
 
 const useLogin = () => {
   const api = useApi();
-  const navigate = useNavigate();
+  const router = useRouter();
+  const store = useAuthStore();
   return useMutation(
     (params: LoginPayload) => api.post("/auth/signin", params),
     {
@@ -18,7 +21,8 @@ const useLogin = () => {
         saveState("accessToken", accessToken);
         saveState("refreshToken", refreshToken);
         saveState("user", user);
-        navigate("/");
+        store.setUser(user);
+        router.push("/");
       },
     }
   );
