@@ -15,7 +15,11 @@ export interface IWorkout {
   _id: string;
   name: string;
   training: ITraining[];
-  student: IUser;
+  studentId: string;
   isActive: boolean;
-  createdBy: IUser;
+  createdBy: string;
+}
+
+export enum WorkoutsQueryKeys {
+  PATCH = "patch",
 }

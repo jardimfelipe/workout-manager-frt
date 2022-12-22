@@ -1,5 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { AuthTemplate, Dash, Home, LoggedTemplate, Login } from "@/components";
+import {
+  AuthTemplate,
+  Dash,
+  Home,
+  LoggedTemplate,
+  Login,
+  CreateWorkout,
+} from "@/components";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +21,12 @@ const router = createRouter({
       path: "/dash",
       name: "dash",
       component: Dash,
+      meta: { template: LoggedTemplate, transition: "fade" },
+    },
+    {
+      path: "/workouts/new",
+      name: "Create Workout",
+      component: CreateWorkout,
       meta: { template: LoggedTemplate, transition: "fade" },
     },
     {

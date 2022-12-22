@@ -1,18 +1,29 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 import type { IUser } from "../type";
 import useDeleteStudent from "../services/useDeleteStudent";
+import usePatchWorkout from "@/domain/workouts/services/usePatchWorkout";
+import { useWorkoutStore } from "@/stores/workouts";
 
-defineProps<{ student: IUser }>();
+const props = defineProps<{ student: IUser }>();
 
 const deleteStudent = useDeleteStudent();
+const patchWorkout = usePatchWorkout();
+const workoutStore = useWorkoutStore();
+const router = useRouter();
 
 const isOpen = ref(false);
+
+const createWorkout = () => {
+  workoutStore.setCreatingWorkoutStudent(props.student);
+  router.push("/workouts/new");
+};
 </script>
 
 <template>
-  <v-dialog persistent v-model="isOpen" max-width="900px" activator="parent">
+  <v-dialog v-model="isOpen" max-width="900px" activator="parent">
     <template v-slot:activator="{ props }">
       <v-btn
         size="large"
@@ -68,8 +79,16 @@ const isOpen = ref(false);
                   <v-col>
                     <v-switch
                       color="primary"
+                      :disabled="patchWorkout.isLoading.value"
                       :label="workout.isActive ? 'Ativo' : 'Inativo'"
                       v-model="workout.isActive"
+                      @click.prevent="
+                        patchWorkout.mutate({
+                          id: workout._id,
+                          isActive: !workout.isActive,
+                        })
+                      "
+                      dense
                       hide-details
                     />
                   </v-col>
@@ -78,21 +97,29 @@ const isOpen = ref(false);
             </v-card>
           </v-col>
         </v-row>
+
+        <v-row>
+          <v-col>
+            <v-btn
+              @click="createWorkout"
+              x-large
+              block
+              color="greyButton"
+              class="pa-6"
+            >
+              <v-icon icon="mdi-plus" />
+              <span>Criar um novo treino</span>
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-container>
 
-      <v-card-actions class="d-flex justify-center">
+      <v-card-actions>
         <v-btn
           :disabled="deleteStudent.isLoading.value"
           color="primary"
           @click="isOpen = false"
-          >Cancelar</v-btn
-        >
-        <v-btn
-          color="error"
-          variant="elevated"
-          :loading="deleteStudent.isLoading.value"
-          @click="deleteStudent.mutate({ id: student._id })"
-          >Excluir</v-btn
+          >Fechar</v-btn
         >
       </v-card-actions>
     </v-card>

@@ -4,6 +4,7 @@
     :value="modelValue"
     variant="outlined"
     @input="updateValue"
+    density="compact"
   />
 </template>
 
