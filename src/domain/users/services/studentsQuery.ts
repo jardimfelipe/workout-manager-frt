@@ -12,7 +12,6 @@ type Props = {
 
 const useStudentsQuery = () => {
   const store = useAuthStore();
-  console.log(store.user);
   const api = useApi();
   return useQuery(
     [StudentsQueryKey.STUDENTS],

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import type { IUser } from "../type";
 import useDeleteStudent from "../services/useDeleteStudent";
 import usePatchWorkout from "@/domain/workouts/services/usePatchWorkout";
+import { DeleteWorkoutDialog } from "@/domain/workouts";
 import { useWorkoutStore } from "@/stores/workouts";
 
 const props = defineProps<{ student: IUser }>();
@@ -20,6 +21,12 @@ const createWorkout = () => {
   workoutStore.setCreatingWorkoutStudent(props.student);
   router.push("/workouts/new");
 };
+
+const sortedWorkouts = computed(() =>
+  [...(props.student.workouts || [])].sort((a, b) =>
+    a.isActive < b.isActive ? 1 : -1
+  )
+);
 </script>
 
 <template>
@@ -63,13 +70,16 @@ const createWorkout = () => {
 
         <v-row>
           <v-col
-            v-for="(workout, index) in student.workouts"
+            v-for="(workout, index) in sortedWorkouts"
             :key="workout._id"
             cols="12"
           >
-            <v-card>
+            <v-card :color="workout.isActive ? 'greyButton' : 'default'">
               <v-container>
                 <v-row align="center">
+                  <v-col cols="2">
+                    <delete-workout-dialog :workout="workout" />
+                  </v-col>
                   <v-col>
                     {{ workout.name }}
                   </v-col>
@@ -78,9 +88,8 @@ const createWorkout = () => {
                   </v-col>
                   <v-col>
                     <v-switch
-                      color="primary"
+                      color="success"
                       :disabled="patchWorkout.isLoading.value"
-                      :label="workout.isActive ? 'Ativo' : 'Inativo'"
                       v-model="workout.isActive"
                       @click.prevent="
                         patchWorkout.mutate({

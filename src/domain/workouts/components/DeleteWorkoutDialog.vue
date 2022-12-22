@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { IWorkout } from "../types";
+import { useDeleteWorkout } from "..";
 
 defineProps<{ workout: IWorkout }>();
 
@@ -23,13 +24,13 @@ const isOpen = ref(false);
     </template>
     <v-card>
       <v-card-text>
-        Você tem certeza que quer excluir o aluno
-        <strong>{{ student.name }}</strong
+        Você tem certeza que quer excluir o treino
+        <strong>{{ workout.name }}</strong
         >?
       </v-card-text>
       <v-card-actions class="d-flex justify-center">
         <v-btn
-          :disabled="deleteStudent.isLoading.value"
+          :disabled="deleteWorkout.isLoading.value"
           color="primary"
           @click="isOpen = false"
           >Cancelar</v-btn
@@ -37,8 +38,8 @@ const isOpen = ref(false);
         <v-btn
           color="error"
           variant="elevated"
-          :loading="deleteStudent.isLoading.value"
-          @click="deleteStudent.mutate({ id: student._id })"
+          :loading="deleteWorkout.isLoading.value"
+          @click="deleteWorkout.mutate({ id: workout._id })"
           >Excluir</v-btn
         >
       </v-card-actions>

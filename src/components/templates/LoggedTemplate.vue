@@ -25,7 +25,9 @@ const logout = useLogout();
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn flat @click="logout.mutate()" block> Sair </v-btn>
+            <v-btn color="primary" flat @click="logout.mutate()" block>
+              Sair
+            </v-btn>
           </div>
         </template>
       </v-navigation-drawer>
