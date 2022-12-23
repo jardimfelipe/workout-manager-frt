@@ -5,6 +5,7 @@ import { useRoute } from "vue-router";
 
 import { useAuthStore } from "./stores/auth";
 import { getSavedState } from "./utils/localStorage";
+import { useWorkoutStore } from "./stores/workouts";
 
 const route = useRoute();
 const authStore = useAuthStore();

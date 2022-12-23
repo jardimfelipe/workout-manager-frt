@@ -20,6 +20,11 @@ export interface IWorkout {
   createdBy: string;
 }
 
+export interface IWorkoutModel {
+  name: string;
+  training: ITraining[];
+}
+
 export enum WorkoutsQueryKeys {
   PATCH = "patch",
 }
