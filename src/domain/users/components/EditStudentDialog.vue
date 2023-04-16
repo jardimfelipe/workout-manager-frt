@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import type { IUser } from "../type";
-import useDeleteStudent from "../services/useDeleteStudent";
+import { useDeleteStudent } from "../";
 import usePatchWorkout from "@/domain/workouts/services/usePatchWorkout";
 import { DeleteWorkoutDialog } from "@/domain/workouts";
 import { useWorkoutStore } from "@/stores/workouts";

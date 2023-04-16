@@ -23,8 +23,6 @@ const onSubmit = () => {
     studentId,
     ...workoutStore.newWorkout,
   };
-  console.log(workout);
-  console.log(workoutName.value);
   createWorkout.mutate(workout, {
     onSuccess() {
       workoutStore.reset();

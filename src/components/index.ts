@@ -1,7 +1,6 @@
 // Pages
 export { default as Home } from "./pages/Home.vue";
 export { default as Login } from "./pages/Login.vue";
-export { default as Dash } from "./pages/Dash.vue";
 export { default as CreateWorkout } from "./pages/workouts/CreateWorkout.vue";
 
 // Templates

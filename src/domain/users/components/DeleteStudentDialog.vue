@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { IUser } from "../type";
-import useDeleteStudent from "../services/useDeleteStudent";
+import { useDeleteStudent } from "../";
 
 defineProps<{ student: IUser }>();
 
@@ -14,8 +14,9 @@ const isOpen = ref(false);
   <v-dialog persistent max-width="600px" v-model="isOpen" activator="parent">
     <template v-slot:activator="{ props }">
       <v-btn
-        size="large"
         flat
+        disabled
+        size="large"
         variant="text"
         color="error"
         v-bind="props"

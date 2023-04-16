@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import {
   AuthTemplate,
-  Dash,
   Home,
   LoggedTemplate,
   Login,
@@ -15,12 +14,6 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: Home,
-      meta: { template: LoggedTemplate, transition: "fade" },
-    },
-    {
-      path: "/dash",
-      name: "dash",
-      component: Dash,
       meta: { template: LoggedTemplate, transition: "fade" },
     },
     {
