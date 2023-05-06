@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import cloneDeep from "lodash.clonedeep";
 
 import { TextField } from "@/components";
@@ -34,8 +34,12 @@ const handleChange = ({ value, name }: any, eventIndex: any) => {
 const handleCloseButton = () => {
   isOpen.value = false;
 };
-const addExercise = () => {
+
+const addExercise = async  () => {
   form.value.exercises.push(EMPTY_EXERCISE);
+  await nextTick()
+  const input = document.querySelector(`#exercicio-${form.value.exercises.length - 1}`) as HTMLInputElement
+  if(input) input.focus()
 };
 
 const onSubmit = async () => {
@@ -70,6 +74,10 @@ const onSubmit = async () => {
             density="compact"
           />
         </div>
+        <code>
+
+          {{ formRef }}
+        </code>
       </v-card-title>
 
       <v-container>
@@ -94,6 +102,7 @@ const onSubmit = async () => {
                 <v-col>
                   <text-field
                     label="Exercício"
+                    :id="`exercicio-${index}`"
                     @input="
                       handleChange(
                         { value: $event.target.value, name: 'exercise' },
