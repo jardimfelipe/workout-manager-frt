@@ -30,7 +30,7 @@ const sortedWorkouts = computed(() =>
 </script>
 
 <template>
-  <v-dialog v-model="isOpen" max-width="900px" activator="parent">
+  <v-dialog class="student-dialog" v-model="isOpen" max-width="900px">
     <template v-slot:activator="{ props }">
       <v-btn
         size="large"

@@ -28,10 +28,8 @@ const { data, isLoading } = useStudentsQuery();
 
       <tr v-for="student in data" :key="student._id">
         <td>
-          <v-spacer>
             <delete-student-dialog :student="student" />
             <edit-student-dialog :student="student" />
-          </v-spacer>
         </td>
         <td>{{ student.name }}</td>
         <td>{{ student.email }}</td>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+
 import type { IUser } from "../type";
 import { useDeleteStudent } from "../";
 
@@ -11,7 +12,7 @@ const isOpen = ref(false);
 </script>
 
 <template>
-  <v-dialog persistent max-width="600px" v-model="isOpen" activator="parent">
+  <v-dialog class="delete-dialog" persistent max-width="600px" v-model="isOpen">
     <template v-slot:activator="{ props }">
       <v-btn
         flat
