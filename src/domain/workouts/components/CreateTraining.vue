@@ -74,10 +74,6 @@ const onSubmit = async () => {
             density="compact"
           />
         </div>
-        <code>
-
-          {{ formRef }}
-        </code>
       </v-card-title>
 
       <v-container>

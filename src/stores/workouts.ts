@@ -12,10 +12,12 @@ export const useWorkoutStore = defineStore("workouts", () => {
   }
 
   function setNewWorkout(workout: Partial<IWorkout>) {
-    Object.keys(workout).forEach((key) => {
-      delete newWorkout.value[key as keyof IWorkout];
-      newWorkout.value[key as keyof IWorkout] = workout[key as keyof IWorkout];
-    });
+    (Object.keys(workout) as Array<keyof typeof newWorkout.value>).forEach(
+      (key) => {
+        delete newWorkout.value[key];
+        newWorkout.value[key] = workout[key] as any;
+      }
+    );
   }
 
   function addNewTraining(training: ITraining) {
@@ -23,6 +25,10 @@ export const useWorkoutStore = defineStore("workouts", () => {
     newWorkout.value.training
       ? newWorkout.value.training.push(obj)
       : (newWorkout.value.training = [obj]);
+  }
+
+  function deleteTraining(index: number) {
+    newWorkout.value.training?.splice(index, 1);
   }
 
   const reset = () => {
@@ -35,6 +41,7 @@ export const useWorkoutStore = defineStore("workouts", () => {
     setCreatingWorkoutStudent,
     newWorkout,
     setNewWorkout,
+    deleteTraining,
     reset,
     addNewTraining,
   };

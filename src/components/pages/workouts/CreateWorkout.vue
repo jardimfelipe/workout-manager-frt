@@ -14,6 +14,10 @@ const workoutName = ref("");
 const router = useRouter();
 const toast = useToast();
 
+const onDeleteTraining = (index:number) => {
+  workoutStore.deleteTraining(index);
+}
+
 const onSubmit = () => {
   const studentId = workoutStore.creatingWorkoutStudent?._id;
   const workout = {
@@ -46,42 +50,20 @@ const onSubmit = () => {
 
     <v-row>
       <v-col>
-        <v-card
-          :loading="createWorkout.isLoading.value"
-          class="pa-6 position-relative"
-        >
-          <v-overlay
-            color="white"
-            contained
-            v-model="createWorkout.isLoading.value"
-          />
+        <v-card :loading="createWorkout.isLoading.value" class="pa-6 position-relative">
+          <v-overlay color="white" contained v-model="createWorkout.isLoading.value" />
           <template v-slot:loader="{ isActive }">
-            <v-progress-linear
-              :active="isActive"
-              color="primary"
-              height="4"
-              indeterminate
-            />
+            <v-progress-linear :active="isActive" color="primary" height="4" indeterminate />
           </template>
           <h3 class="mb-4">Dados do aluno</h3>
           <v-row v-if="workoutStore.creatingWorkoutStudent?.name">
             <v-col cols="6">
-              <v-text-field
-                label="Nome"
-                density="compact"
-                variant="outlined"
-                v-model="workoutStore.creatingWorkoutStudent.name"
-                readonly
-              />
+              <v-text-field label="Nome" density="compact" variant="outlined"
+                v-model="workoutStore.creatingWorkoutStudent.name" readonly />
             </v-col>
             <v-col cols="6">
-              <v-text-field
-                label="Email"
-                density="compact"
-                variant="outlined"
-                v-model="workoutStore.creatingWorkoutStudent.email"
-                readonly
-              />
+              <v-text-field label="Email" density="compact" variant="outlined"
+                v-model="workoutStore.creatingWorkoutStudent.email" readonly />
             </v-col>
           </v-row>
 
@@ -91,26 +73,22 @@ const onSubmit = () => {
           <v-form @submit.prevent="onSubmit">
             <v-row>
               <v-col class="d-flex" cols="6">
-                <text-field
-                  v-model="workoutName"
-                  name="name"
-                  label="Nome do treino"
-                />
+                <text-field v-model="workoutName" name="name" label="Nome do treino" />
               </v-col>
             </v-row>
 
             <v-row>
-              <v-col
-                cols="12"
-                v-for="(training, index) in workoutStore.newWorkout.training"
-              >
+              <v-col cols="12" v-for="(training, index) in workoutStore.newWorkout.training">
                 <v-card class="pa-4">
-                  <v-row>
+                  <v-row class="align-center">
                     <v-col>
                       <span>{{ training.name }}</span>
                     </v-col>
                     <v-col>
                       <span>{{ training.exercises.length }} exercícios</span>
+                    </v-col>
+                    <v-col>
+                      <v-btn @click="onDeleteTraining(index)" size="large" flat variant="text" color="error" icon="mdi-delete" />
                     </v-col>
                   </v-row>
                 </v-card>

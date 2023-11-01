@@ -32,12 +32,14 @@ const onSubmit = () => {
         <text-field
           class="mb-3"
           type="email"
+          autocomplete="email"
           label="E-mail"
           :rules="[validationRules.required, validationRules.email]"
           v-model="form.email"
         />
         <text-field
           type="password"
+          autocomplete="current-password"
           label="Senha"
           :rules="[validationRules.required]"
           v-model="form.password"
